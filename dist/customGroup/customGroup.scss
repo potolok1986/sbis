@@ -1,0 +1,17 @@
+custom-group{
+	display: block;
+	height: 26px;
+	&.fix{
+		& > div{
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+	& > div{
+		padding: 4px 8px;
+		font-size: 16px;
+		background: grey;
+		color: white;
+	}
+}

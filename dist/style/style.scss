@@ -1,0 +1,19 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.content{
+	max-width: 680px;
+	margin: 25px auto;
+	padding-top: 12px;
+	h1{
+		font-size: 18px;
+		margin-bottom: 12px;
+	}
+	.container{
+		border: 1px solid #c2c2c2;
+		width: 300px;
+		height: 300px;
+		overflow: hidden;
+	}
+}
