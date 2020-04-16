@@ -37,29 +37,32 @@ export default class SimpleList extends HTMLElement {
         if (!url) {
             return []
         }
-        this.innerHTML = "...Loading";
+        this.beforeLoading();
         let response = await fetch(url, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
             },
         });
-        if (response.ok) {
-            return await response.json();
-        } else {
-            this.errorCallback(response)
-        }
+        return response.ok ? await response.json() : [];
     }
 
     protected parseResponse(data): any[] {
         return data
     };
 
+    protected beforeLoading(): void {
+        this.innerHTML = "...Loading";
+    }
+
     protected errorCallback(response): void {
         this.innerHTML = "Loading error";
     };
 
     private async render(data: any[]) {
+        if (typeof data !== "object" || !data.hasOwnProperty("length")) {
+            throw new Error("data must by array")
+        }
         const sortData = this.sort(data);
         this.innerHTML = `<div>${this.generateList(sortData)}</div>`;
     }
@@ -87,7 +90,7 @@ export default class SimpleList extends HTMLElement {
         return htmlStr
     }
 
-    protected generateHtmlTag(tagName: string, value: any, index: number, array: [], data:any): string {
+    protected generateHtmlTag(tagName: string, value: any, index: number, array: [], data: any): string {
         if (tagName) {
             return `<${tagName}>${value}</${tagName}>`
         }
