@@ -6,7 +6,7 @@ const options = {
     url: "/data/countries.json",
     groupElement: "custom-group",
     rowElement: "custom-row",
-    //data: ["1","2","3"]
+    //data: ["1","2","3"] // если нужно передать просто данные в список
 };
 
 export default class MySimpleList extends SimpleList {
