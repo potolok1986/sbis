@@ -44,7 +44,12 @@ export default class SimpleList extends HTMLElement {
                 'Content-Type': 'application/json'
             },
         });
-        return response.ok ? await response.json() : [];
+        if(response.ok){
+            return await response.json()
+        }else {
+            this.errorCallback(response);
+            return [];
+        }
     }
 
     protected parseResponse(data): any[] {
@@ -77,11 +82,12 @@ export default class SimpleList extends HTMLElement {
         const {groupElement, rowElement} = this.simpleSelectOptions;
 
         for (let i = 0; i < sortData.length; i++) {
+            let firstChar = (sortData[i] as string).charAt(0);
             if (!groupChar && groupElement) {
-                groupChar = sortData[i][0];
+                groupChar = firstChar;
                 htmlStr += this.generateHtmlTag(groupElement, groupChar, i, sortData, this.data)
             }
-            if (sortData[i + 1] && sortData[i + 1][0] !== groupChar) {
+            if (sortData[i + 1] && firstChar !== groupChar) {
                 groupChar = "";
             }
             htmlStr += this.generateHtmlTag(rowElement, sortData[i], i, sortData, this.data)
